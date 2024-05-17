@@ -1,18 +1,25 @@
 # File name: serve_quickstart.py
-from starlette.requests import Request
-
 import ray
+import requests
+
+from starlette.requests import Request
 from ray import serve
-
 from transformers import pipeline
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 
-@serve.deployment(num_replicas=2, ray_actor_options={"num_cpus": 0.2, "num_gpus": 0})
+app = FastAPI()
+
+
+@serve.deployment(num_replicas=2, ray_actor_options={"num_cpus": 0.5, "num_gpus": 0})
+@serve.ingress(app)
 class Translator:
     def __init__(self):
         # Load model
         self.model = pipeline("translation_en_to_fr", model="t5-small")
 
+    @app.post("/translator")
     def translate(self, text: str) -> str:
         # Run inference
         model_output = self.model(text)
