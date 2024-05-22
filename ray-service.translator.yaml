@@ -1,27 +1,15 @@
-apiVersion: ray.io/v1alpha1
+apiVersion: ray.io/v1
 kind: RayService
 metadata:
   name: rayservice-translator
 spec:
-  serviceUnhealthySecondThreshold: 900 # Config for the health check threshold for Ray Serve applications. Default value is 900.
-  deploymentUnhealthySecondThreshold: 300 # Config for the health check threshold for Ray dashboard agent. Default value is 300.
+  # serviceUnhealthySecondThreshold: 900 # Config for the health check threshold for Ray Serve applications. Default value is 900.
+  # deploymentUnhealthySecondThreshold: 300 # Config for the health check threshold for Ray dashboard agent. Default value is 300.
   serveConfigV2: |
-    proxy_location: EveryNode
-
-    http_options:
-
-      host: 0.0.0.0
-
-      port: 8000
-
     applications:
-
-    - name: app1
-
+    - name: translator_app
       route_prefix: /
-
-      import_path: model:translator_app
-
+      import_path: serve_quickstart.translator_app
       runtime_env: 
         working_dir: "https://github.com/javiro/kuberay_tests/archive/master.zip"
         pip: 
