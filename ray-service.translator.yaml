@@ -24,7 +24,10 @@ spec:
 
       runtime_env: 
         working_dir: "https://github.com/javiro/kuberay_tests/archive/master.zip"
-        pip: ["starlette"]
+        pip: 
+         - torch
+         - transformers
+         - starlette
 
   rayClusterConfig:
     rayVersion: "2.6.3" # should match the Ray version in the image of the containers
