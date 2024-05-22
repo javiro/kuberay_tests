@@ -27,7 +27,7 @@ Run the following bash commands to deploy the ML model in a Kubernetes cluster.
 - Install kuberay-operator: ```helm install kuberay-operator kuberay/kuberay-operator --version 1.1.0```
 - Port forward: ```kubectl port-forward svc/rayservice-translator-head-svc 8000:8000```
 - Deploy the model: ```kubectl apply -f ray-service.translator.yaml```
-- Test it in anew shell via ```ipython```: 
+- Test it in a new shell via ```ipython```: 
 
 ```python
 import requests
